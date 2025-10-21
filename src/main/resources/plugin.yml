@@ -1,0 +1,4 @@
+name: administrator
+version: '1.0-SNAPSHOT'
+main: com.noinsts.administrator.Main
+api-version: '1.19'
