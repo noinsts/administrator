@@ -2,3 +2,7 @@ name: administrator
 version: '1.0-SNAPSHOT'
 main: com.noinsts.administrator.Main
 api-version: '1.19'
+commands:
+  getcoords:
+    description: Показує координати відправника або іншого гравця
+    usage: /getcoord [player]
