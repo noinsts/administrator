@@ -10,7 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-public class TabColorListener implements Listener {
+public class ColoredNameListener implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
