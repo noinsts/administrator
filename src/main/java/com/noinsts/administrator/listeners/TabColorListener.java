@@ -1,5 +1,6 @@
 package com.noinsts.administrator.listeners;
 
+import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.World;
@@ -19,6 +20,19 @@ public class TabColorListener implements Listener {
     @EventHandler
     public void onWorldChange(PlayerChangedWorldEvent event) {
         updateColor(event.getPlayer());
+    }
+
+    @EventHandler
+    public void onChat(AsyncChatEvent event) {
+        Player player = event.getPlayer();
+        NamedTextColor color = getColor(player.getWorld().getEnvironment());
+
+        event.renderer((source, displayName, message, viewer) ->
+                Component.text("<")
+                        .append(Component.text(player.getName(), color))
+                        .append(Component.text("> "))
+                        .append(message.color(NamedTextColor.WHITE))
+        );
     }
 
     @SuppressWarnings("EnhancedSwitchMigration")
