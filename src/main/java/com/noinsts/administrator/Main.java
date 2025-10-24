@@ -2,6 +2,7 @@ package com.noinsts.administrator;
 
 import com.noinsts.administrator.coordinates.GetCoord;
 import com.noinsts.administrator.listeners.ColoredNameListener;
+import com.noinsts.administrator.listeners.DeathBackListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
@@ -13,6 +14,9 @@ public final class Main extends JavaPlugin {
         // Plugin startup logic
         Objects.requireNonNull(this.getCommand("getcoords")).setExecutor(new GetCoord());
         getServer().getPluginManager().registerEvents(new ColoredNameListener(), this);
+        DeathBackListener deathBackListener = new DeathBackListener();
+        getServer().getPluginManager().registerEvents(deathBackListener, this);
+        Objects.requireNonNull(this.getCommand("backdeath")).setExecutor(deathBackListener);
     }
 
     @Override
