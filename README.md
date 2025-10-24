@@ -1,5 +1,14 @@
 # Administrator
 
+![Java](https://img.shields.io/badge/Java-17%2B-orange?logo=openjdk&logoColor=white)
+![PaperMC](https://img.shields.io/badge/Paper-1.19.4-blue?logo=minecraft&logoColor=white)
+![Gradle](https://img.shields.io/badge/Gradle-Build-success?logo=gradle&logoColor=white&color=02303A)
+![License](https://img.shields.io/github/license/noinsts/administrator?color=brightgreen)
+![Last Commit](https://img.shields.io/github/last-commit/noinsts/administrator?logo=github&color=blueviolet)
+![Repo Size](https://img.shields.io/github/repo-size/noinsts/administrator?color=teal)
+![Issues](https://img.shields.io/github/issues/noinsts/administrator?color=yellow)
+![Pull Requests](https://img.shields.io/github/issues-pr/noinsts/administrator?color=lightblue)
+
 Плагін для Paper сервера Minecraft, який додає корисні адміністративні команди та візуальні покращення для виживання з друзями.
 
 ## Функції
