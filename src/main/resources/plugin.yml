@@ -6,3 +6,6 @@ commands:
   getcoords:
     description: Показує координати відправника або іншого гравця
     usage: /getcoord [player]
+  backdeath:
+    description: Телепортує гравця до точки смерті.
+    usage: /backdeath [player]
