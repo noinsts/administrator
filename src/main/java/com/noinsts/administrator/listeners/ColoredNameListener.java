@@ -13,14 +13,14 @@ import org.bukkit.event.player.PlayerJoinEvent;
 /**
  * Слухач подій, що автоматично змінює колір імені в гравці залежно від виміру світу.
  *
- * <p>Колірна схема:</p>
+ * <h1>Колірна схема:</h1>
  * <ul>
  *     <li>Звичайний світ (Overworld) - {@link NamedTextColor#GREEN зелений}</li>
  *     <li>Пекло (Nether) - {@link NamedTextColor#RED червоний}</li>
  *     <li>Край (The End) - {@link NamedTextColor#LIGHT_PURPLE світло-фіолетовий}</li>
  * </ul>
  *
- * <p>Колір застосовується до:</p>
+ * <h1>Колір застосовується до:</h1>
  * <ul>
  *     <li>Імені гравця в списку гравців (Tab)</li>
  *     <li>Імені гравця в повідомленнях чату</li>
