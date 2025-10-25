@@ -1,6 +1,6 @@
 package com.noinsts.administrator;
 
-import com.noinsts.administrator.coordinates.GetCoord;
+import com.noinsts.administrator.commands.GetCoord;
 import com.noinsts.administrator.listeners.ColoredNameListener;
 import com.noinsts.administrator.listeners.DeathBackListener;
 import org.bukkit.plugin.java.JavaPlugin;

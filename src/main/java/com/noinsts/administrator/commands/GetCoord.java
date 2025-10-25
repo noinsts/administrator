@@ -1,4 +1,4 @@
-package com.noinsts.administrator.coordinates;
+package com.noinsts.administrator.commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
