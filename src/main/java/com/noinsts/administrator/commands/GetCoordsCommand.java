@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
  * @since 1.0-SNAPSHOT
  * @author noinsts
  */
-public class GetCoord implements CommandExecutor {
+public class GetCoordsCommand implements CommandExecutor {
     /**
      * Викликається при введенні команди /getcoord.
      *
