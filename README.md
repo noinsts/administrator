@@ -103,6 +103,38 @@ cd administator
 
 Якщо маєш пропозицію — створи [Issue](https://github.com/noinsts/administrator/issues)! 💡
 
+## 🛠️ Архітектура проєкту
+
+```
+administrator/
+├── gradle/                                         # Системні файли Gradle
+├── src/
+│   └── main/
+│       ├── java/
+│       │   └── com/noinsts/administrator/
+│       │       ├── commands/                       # Команди плагіна
+│       │       │   ├── BackDeathCommand.java       # Телепортація до точок смерті (/backdeath)
+│       │       │   └── GetCoordsCommand.java       # Вивід координат гравця (/getcoords)
+│       │       │
+│       │       ├── listeners/                      # Слухачі подій (івенти)
+│       │       │   ├── ColoredNameListener.java    # Задач кольорові нікнейми гравців
+│       │       │   └── PlayerDeathListener.java    # Зберігає координати про смерті гравця
+│       │       │
+│       │       ├── managers/                       # Клас-менеджери даних
+│       │       │   └── DeathLocationManager.java   # Зберігає координати смерті гравців
+│       │       │
+│       │       └── Main.java                       # Головний клас плагіна (точка входу)
+│       │
+│       └── resources/
+│           └── plugin.yml                          # Конфігурація плагіна (ім'я, версія, команди)
+├── .gitignore                                      # Ігноровані файли Git
+├── build.gradle                                    # Основний скрипт для збірки Gradle
+├── gradle.properties                               # Додаткові параметри збірки
+├── LICENSE                                         # Ліцензія проєкту
+├── README.md                                       # Документація та опис плагіна
+└── settings.gradle                                 # Налаштування структури проєкту Gradle
+```
+
 ## 📄 Ліцензія
 
 Цей проєкт розповсюджується під ліцензією [MIT](https://opensource.org/license/mit). Детальніше див. [LICENSE](./LICENSE).
