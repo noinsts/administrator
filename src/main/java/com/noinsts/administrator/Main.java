@@ -11,19 +11,36 @@ import java.util.Objects;
 
 public final class Main extends JavaPlugin {
 
+    private DeathLocationManager deathLocationManager;
+
     @Override
     public void onEnable() {
-        // Plugin startup logic
-        Objects.requireNonNull(this.getCommand("getcoords")).setExecutor(new GetCoordsCommand());
-        getServer().getPluginManager().registerEvents(new ColoredNameListener(), this);
+        getLogger().info("⚙️ Administrator plugin is starting...");
 
-        DeathLocationManager deathLocationManager = new DeathLocationManager();
-        Objects.requireNonNull(this.getCommand("backdeath")).setExecutor(new BackDeathCommand(deathLocationManager));
-        getServer().getPluginManager().registerEvents(new PlayerDeathListener(deathLocationManager), this);
+        initializeManagers();
+        registerCommands();
+        registerListeners();
+
+        getLogger().info("✅ Administrator plugin successfully enabled!");
     }
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        getLogger().info("\uD83D\uDED1 Administrator plugin disabled.");
+    }
+
+    private void initializeManagers() {
+        this.deathLocationManager = new DeathLocationManager();
+    }
+
+    private void registerCommands() {
+        Objects.requireNonNull(this.getCommand("getcoords")).setExecutor(new GetCoordsCommand());
+        Objects.requireNonNull(this.getCommand("backdeath")).setExecutor(new BackDeathCommand(deathLocationManager));
+    }
+
+    private void registerListeners() {
+        var pm = getServer().getPluginManager();
+        pm.registerEvents(new ColoredNameListener(), this);
+        pm.registerEvents(new PlayerDeathListener(deathLocationManager), this);
     }
 }
