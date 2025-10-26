@@ -9,8 +9,49 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Команда, що телепортує гравця до місця його останньої смерті.
+ *
+ * <p>
+ *
+ * <ul>
+ *     <li>Якщо аргумент [player] вказаний - виконується телепортація його</li>
+ *     <li>Якщо без аргументів - телепортується відправник</li>
+ * </ul>
+ *
+ * @param deathLocationManager Менеджер управліннями координат смерті.
+ *
+ * @since 1.0-SNAPSHOT
+ * @author noinsts
+ */
 public record BackDeathCommand(DeathLocationManager deathLocationManager) implements CommandExecutor {
 
+    /**
+     * Оброблює команду /backdeath.
+     *
+     * <hr>
+     *
+     * <h1>Поведінка</h1>
+     *
+     * <ol>
+     *     <li>
+     *         Визначається гравець, якого треба телепортувати:
+     *         якщо аргумент вказаний - той гравець, якщо нік - сам відправник
+     *     </li>
+     *     <li>Перевіряється, чи гравець онлайн.</li>
+     *     <li>Перевіряється, чи збережена точка смерті.</li>
+     *     <li>Якщо так - виконується телепортація до координат смерті.</li>
+     * </ol>
+     *
+     * <hr>
+     *
+     * @param sender Відправник команди.
+     * @param command Об'єкт команди.
+     * @param label Під яким псевдонімом викликалась команда.
+     * @param args Аргументи команди.
+     *
+     * @return {@code true}, якщо команда виконалась успішно.
+     */
     @Override
     public boolean onCommand(
             @NotNull CommandSender sender,
