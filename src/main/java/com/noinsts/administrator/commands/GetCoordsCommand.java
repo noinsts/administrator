@@ -58,7 +58,7 @@ public class GetCoordsCommand implements CommandExecutor {
 
         Location location = target.getLocation();
         sender.sendMessage(String.format(
-                "§a📍 Координати §e%s§a [%s]: §fX: %.1f, Y: %.1f, Z: %.1f",
+                "§aКоординати §e%s§a [%s]: §fX: %.1f, Y: %.1f, Z: %.1f",
                 target.getName(),
                 location.getWorld().getName(),
                 location.getX(),
