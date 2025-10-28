@@ -2,6 +2,7 @@ package com.noinsts.administrator;
 
 import com.noinsts.administrator.commands.BackDeathCommand;
 import com.noinsts.administrator.commands.GetCoordsCommand;
+import com.noinsts.administrator.commands.InvSeeCommand;
 import com.noinsts.administrator.listeners.ColoredNameListener;
 import com.noinsts.administrator.listeners.PlayerDeathListener;
 import com.noinsts.administrator.managers.DeathLocationManager;
@@ -18,7 +19,7 @@ import java.util.Objects;
  *
  * <ul>
  *     <li>Ініціалізацію менеджерів ({@link DeathLocationManager})</li>
- *     <li>Реєстрацію команд (/backdeath, /getcoords)</li>
+ *     <li>Реєстрацію команд (/backdeath, /getcoords, /invsee)</li>
  *     <li>Реєстрацію слухачів подій ({@link PlayerDeathListener}, {@link ColoredNameListener})</li>
  *     <li>Логування старту та вимкнення плагіну</li>
  * </ul>
@@ -70,6 +71,7 @@ public final class Main extends JavaPlugin {
     private void registerCommands() {
         Objects.requireNonNull(this.getCommand("getcoords")).setExecutor(new GetCoordsCommand());
         Objects.requireNonNull(this.getCommand("backdeath")).setExecutor(new BackDeathCommand(deathLocationManager));
+        Objects.requireNonNull(this.getCommand("invsee")).setExecutor(new InvSeeCommand());
     }
 
     /**
