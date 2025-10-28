@@ -1,5 +1,6 @@
 package com.noinsts.administrator.commands;
 
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -35,7 +36,11 @@ public class InvSeeCommand implements CommandExecutor {
             target = (Player) sender;
         }
 
-        Inventory inventory = Bukkit.createInventory(null, 54, "Інвентар " + target.getName());
+        Inventory inventory = Bukkit.createInventory(
+                null,
+                54,
+                Component.text("Інвентар " + target.getName())
+        );
 
         ItemStack[] storage = target.getInventory().getStorageContents();
         for (int i = 0; i < storage.length; i++) {
