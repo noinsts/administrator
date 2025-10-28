@@ -9,3 +9,6 @@ commands:
   backdeath:
     description: Телепортує гравця до точки смерті.
     usage: /backdeath [player]
+  invsee:
+    description: Показує інвентар користувача
+    usage: /invsee [player]
