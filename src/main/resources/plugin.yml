@@ -1,5 +1,5 @@
 name: administrator
-version: '1.0'
+version: '1.1-SNAPSHOT'
 main: com.noinsts.administrator.Main
 api-version: '1.19'
 commands:
