@@ -4,6 +4,7 @@ import com.noinsts.administrator.commands.BackDeathCommand;
 import com.noinsts.administrator.commands.GetCoordsCommand;
 import com.noinsts.administrator.commands.InvSeeCommand;
 import com.noinsts.administrator.listeners.ColoredNameListener;
+import com.noinsts.administrator.listeners.InvSeeListener;
 import com.noinsts.administrator.listeners.PlayerDeathListener;
 import com.noinsts.administrator.managers.DeathLocationManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -81,5 +82,6 @@ public final class Main extends JavaPlugin {
         var pm = getServer().getPluginManager();
         pm.registerEvents(new ColoredNameListener(), this);
         pm.registerEvents(new PlayerDeathListener(deathLocationManager), this);
+        pm.registerEvents(new InvSeeListener(), this);
     }
 }
