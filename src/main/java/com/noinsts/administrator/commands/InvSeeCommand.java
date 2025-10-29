@@ -18,6 +18,9 @@ public class InvSeeCommand implements CommandExecutor {
     /** Початковий індекс слотів для броні у вікні (з 0 до 53). */
     private static final int ARMOR_SLOT_STAR = 45;
 
+    /** Індекс слота другої руки у вікні. */
+    private static final int OFFHAND_SLOT = 50;
+
     @Override
     public boolean onCommand(
             @NotNull CommandSender sender,
@@ -61,6 +64,10 @@ public class InvSeeCommand implements CommandExecutor {
                 inventory.setItem(i + ARMOR_SLOT_STAR, armor[i]);
             }
         }
+
+        // Друга рука
+        ItemStack offhand = target.getInventory().getItemInOffHand();
+        inventory.setItem(OFFHAND_SLOT, offhand);
 
         ((Player) sender).openInventory(inventory);
 
