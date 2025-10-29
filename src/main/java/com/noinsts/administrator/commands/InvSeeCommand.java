@@ -15,6 +15,9 @@ public class InvSeeCommand implements CommandExecutor {
     /** Розмір інвентарю користувача (як велика скриня) */
     private static final int INVENTORY_SIZE = 54;
 
+    /** Початковий індекс слотів для броні у вікні (з 0 до 53). */
+    private static final int ARMOR_SLOT_STAR = 45;
+
     @Override
     public boolean onCommand(
             @NotNull CommandSender sender,
@@ -45,9 +48,18 @@ public class InvSeeCommand implements CommandExecutor {
                 Component.text("Інвентар " + target.getName())
         );
 
+        // Основний інвентар
         ItemStack[] storage = target.getInventory().getStorageContents();
         for (int i = 0; i < storage.length; i++) {
             inventory.setItem(i, storage[i]);
+        }
+
+        // Броня
+        ItemStack[] armor = target.getInventory().getArmorContents();
+        for (int i = 0; i < armor.length; i++) {
+            if (armor[i] != null) {
+                inventory.setItem(i + ARMOR_SLOT_STAR, armor[i]);
+            }
         }
 
         ((Player) sender).openInventory(inventory);
