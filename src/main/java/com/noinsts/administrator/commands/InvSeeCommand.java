@@ -12,6 +12,9 @@ import org.jetbrains.annotations.NotNull;
 
 public class InvSeeCommand implements CommandExecutor {
 
+    /** Розмір інвентарю користувача (як велика скриня) */
+    private static final int INVENTORY_SIZE = 54;
+
     @Override
     public boolean onCommand(
             @NotNull CommandSender sender,
@@ -38,7 +41,7 @@ public class InvSeeCommand implements CommandExecutor {
 
         Inventory inventory = Bukkit.createInventory(
                 null,
-                54,
+                INVENTORY_SIZE,
                 Component.text("Інвентар " + target.getName())
         );
 
