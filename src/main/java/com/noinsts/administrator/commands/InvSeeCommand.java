@@ -10,17 +10,48 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Команда {@code /invsee [player]} дозволяє переглядати вміст інвентарю інших гравців.
+ *
+ * <p>
+ *
+ * Ця команда відкриває інтерфейс великої скрині у якому відображається:
+ *
+ * <ul>
+ *     <li>Весь основний інвентар гравця (36 слотів)</li>
+ *     <li>Броня гравця (4 слоти, починаючи з {@link #ARMOR_SLOT_START})</li>
+ *     <li>Предмет у другій ручі (слот {@link #OFFHAND_SLOT})</li>
+ * </ul>
+ *
+ * <p>
+ *
+ * Гравець, який відкриває інвентар, не може змінювати його вміст.
+ * Захист реалізовано через {@link com.noinsts.administrator.listeners.InvSeeListener}
+ *
+ * @since 1.1-SNAPSHOT
+ * @author noinsts
+ */
 public class InvSeeCommand implements CommandExecutor {
 
     /** Розмір інвентарю користувача (як велика скриня) */
     private static final int INVENTORY_SIZE = 54;
 
     /** Початковий індекс слотів для броні у вікні (з 0 до 53). */
-    private static final int ARMOR_SLOT_STAR = 45;
+    private static final int ARMOR_SLOT_START = 45;
 
     /** Індекс слота другої руки у вікні. */
     private static final int OFFHAND_SLOT = 50;
 
+    /**
+     * Викликається при введенні команди {@code /invsee [player]}.
+     *
+     * @param sender        Відправник команди.
+     * @param command       Об'єкт команди.
+     * @param label         Псевдонім, під яким виконана команда.
+     * @param args          Аргументи команди.
+     *
+     * @return {@code true}, якщо команда виконана успішно
+     */
     @Override
     public boolean onCommand(
             @NotNull CommandSender sender,
@@ -61,7 +92,7 @@ public class InvSeeCommand implements CommandExecutor {
         ItemStack[] armor = target.getInventory().getArmorContents();
         for (int i = 0; i < armor.length; i++) {
             if (armor[i] != null) {
-                inventory.setItem(i + ARMOR_SLOT_STAR, armor[i]);
+                inventory.setItem(i + ARMOR_SLOT_START, armor[i]);
             }
         }
 
