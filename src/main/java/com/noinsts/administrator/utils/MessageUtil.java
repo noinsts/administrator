@@ -40,4 +40,33 @@ public final class MessageUtil {
 
         sender.sendMessage(component);
     }
+
+    /**
+     * Відправляє повідомлення про те, що гравця не знвйдено.
+     *
+     * @param sender Отримувач повідомлення.
+     * @param playerName Нік гравця.
+     */
+    public static void sendPlayerNotFound(
+            @NotNull final CommandSender sender,
+            @NotNull final String playerName
+    ) {
+        final Component component = Component.text()
+                .append(Component.text(ERROR_PREFIX, NamedTextColor.RED))
+                .append(Component.text("Гравця з ніком", NamedTextColor.RED))
+                .append(Component.text(playerName, NamedTextColor.WHITE, TextDecoration.BOLD))
+                .append(Component.text(" не знайдено", NamedTextColor.RED))
+                .build();
+
+        sender.sendMessage(component);
+    }
+
+    /**
+     * Відправляє повідомлення про те, що команда доступна лише гравцям.
+     *
+     * @param sender Отримувач повідомлення.
+     */
+    public static void sendPlayerOnly(@NotNull final CommandSender sender) {
+        sendError(sender, "Цю команду може використовувати лише гравець.");
+    }
 }
