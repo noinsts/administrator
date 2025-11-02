@@ -1,6 +1,7 @@
 package com.noinsts.administrator.commands;
 
 import com.noinsts.administrator.utils.MessageUtil;
+import com.noinsts.administrator.utils.PlayerResolverUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
@@ -45,60 +46,13 @@ public class GetCoordsCommand implements CommandExecutor {
             @NotNull final String label,
             @NotNull final String[] args
     ) {
-        final Optional<Player> target = resolveTargetPlayer(sender, args);
+        final Optional<Player> target = PlayerResolverUtil.resolveTargetPlayer(sender, args);
         if (target.isEmpty()) {
             return true;
         }
 
         sendCoordinates(sender, target.get());
         return true;
-    }
-
-    /**
-     * Визначає цільового гравця на основі аргументів команд.
-     *
-     * <hr>
-     *
-     * <h1>Поведінка</h1>
-     *
-     * <ul>
-     *     <li>
-     *         Якщо передано аргументи - повертає гравця з вказаним іменем,
-     *         якщо він існує та перебуває онлайн.
-     *     </li>
-     *     <li>
-     *         Якщо аргументи відсутні - повертає самого відправника,
-     *         якщо він є гравцем.
-     *     </li>
-     *     <li>
-     *         Якщо гравця не знайдено або команду викликав не гравець -
-     *         надсилає відповідне повідомлення та повертає порожній {@code Optional}.
-     *     </li>
-     * </ul>
-     *
-     * @param sender Відправник команди.
-     * @param args Аргументи команди
-     * @return Optional з гравцем або порожній, якщо гравця не знайдено.
-     */
-    private Optional<Player> resolveTargetPlayer(
-            @NotNull final CommandSender sender,
-            @NotNull final String[] args
-    ) {
-        if (args.length > 0) {
-            final Player target = Bukkit.getPlayerExact(args[0]);
-            if (target == null || !target.isOnline()) {
-                MessageUtil.sendPlayerNotFound(sender, args[0]);
-                return Optional.empty();
-            }
-            return Optional.of(target);
-        }
-
-        if (sender instanceof Player player) {
-            return Optional.of(player);
-        }
-
-        MessageUtil.sendPlayerOnly(sender);
-        return Optional.empty();
     }
 
     /**
