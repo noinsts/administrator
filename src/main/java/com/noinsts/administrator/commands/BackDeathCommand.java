@@ -1,7 +1,7 @@
 package com.noinsts.administrator.commands;
 
 import com.noinsts.administrator.managers.DeathLocationManager;
-import org.bukkit.Bukkit;
+import com.noinsts.administrator.utils.PlayerResolverUtil;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -31,16 +31,17 @@ public record BackDeathCommand(DeathLocationManager deathLocationManager) implem
      *
      * <hr>
      *
-     * <h1>Поведінка</h1>
+     * <h1>Поведінка:</h1>
      *
      * <ol>
      *     <li>
-     *         Визначається гравець, якого треба телепортувати:
-     *         якщо аргумент вказаний - той гравець, якщо нік - сам відправник
+     *         Визначається гравець, якого потрібно телепортувати
+     *         за допомогою утилітарного класу {@link PlayerResolverUtil}.
      *     </li>
-     *     <li>Перевіряється, чи гравець онлайн.</li>
-     *     <li>Перевіряється, чи збережена точка смерті.</li>
-     *     <li>Якщо так - виконується телепортація до координат смерті.</li>
+     *     <li>
+     *         Викликається метод <i>teleport</i> з цього класу, який
+     *         за можливості телепортує гравця до точки смерті та надсилає повідомлення.
+     *     </li>
      * </ol>
      *
      * <hr>
@@ -54,44 +55,61 @@ public record BackDeathCommand(DeathLocationManager deathLocationManager) implem
      */
     @Override
     public boolean onCommand(
-            @NotNull CommandSender sender,
-            @NotNull Command command,
-            @NotNull String label,
-            String[] args
+            @NotNull final CommandSender sender,
+            @NotNull final Command command,
+            @NotNull final String label,
+            @NotNull final String[] args
     ) {
-        Player target;
-        if (args.length > 0) {
-            target = Bukkit.getPlayerExact(args[0]);
-            if (target == null) {
-                sender.sendMessage("§cГравця з таким ніком не знайдено.");
-                return true;
-            }
-        } else if (!(sender instanceof Player)) {
-            sender.sendMessage("§cЦю команду можна використовувати лише гравцю.");
-            return true;
-        } else {
-            target = (Player) sender;
-        }
-
-        Location deathLocation = deathLocationManager.getPlayerLocation(target.getUniqueId());
-
-        if (target.isOnline()) {
-            if (deathLocation == null) {
-                sender.sendMessage("§cВибачте, місце вашої смерті не збережене. :(");
-                return true;
-            }
-            try {
-                target.teleport(deathLocation);
-                sender.sendMessage(String.format(
-                        "§aГравця §e§l%s§r§a телепортовано до точки смерті.",
-                        target.getName()
-                ));
-            } catch (Exception e) {
-                sender.sendMessage("§cСталась помилка при телепорті. Спробуйте знову");
-            }
-        } else {
-            sender.sendMessage("§cГравець не онлайн");
-        }
+        PlayerResolverUtil.resolveTargetPlayer(sender, args)
+                .map(target -> {
+                    teleport(sender, target);
+                    return true;
+                });
         return true;
+    }
+
+    /**
+     * Оброблює телепортацію гравця до точки його смерті.
+     *
+     * <hr>
+     *
+     * <h1>Поведінка:</h1>
+     *
+     * <ol>
+     *     <li>
+     *         З класу {@link DeathLocationManager} викликається метод,
+     *         що отримує координати гравця
+     *     </li>
+     *     <li>Перевірка на наявність гравця в мережі</li>
+     *     <li>Перевірка на наявність координат</li>
+     *     <li>Телепортується гравець</li>
+     * </ol>
+     *
+     * <hr>
+     *
+     * @param sender Відправник команди.
+     * @param target Той, хто телепортується.
+     */
+    private void teleport(
+            @NotNull final CommandSender sender,
+            @NotNull final Player target
+    ) {
+        final Location deathLocation = deathLocationManager.getPlayerLocation(target.getUniqueId());
+
+        if (deathLocation == null) {
+            sender.sendMessage("§cВибачте, місце вашої смерті не збережене. :(");
+            return;
+        }
+
+        try {
+            target.teleport(deathLocation);
+            sender.sendMessage(String.format(
+                    "§aГравця §e§l%s§r§a телепортовано до точки смерті.",
+                    target.getName()
+            ));
+        }
+        catch (Exception e) {
+            sender.sendMessage("§cСталась помилка при телепорті. Спробуйте знову");
+        }
     }
 }
