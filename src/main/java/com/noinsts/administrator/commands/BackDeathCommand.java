@@ -97,16 +97,35 @@ public record BackDeathCommand(DeathLocationManager deathLocationManager) implem
         final Location deathLocation = deathLocationManager.getPlayerLocation(target.getUniqueId());
 
         if (deathLocation == null) {
-            sender.sendMessage("§cВибачте, місце вашої смерті не збережене. :(");
+            final String message = sender.equals(target)
+                    ? "§cВибачте, місце вашої смерті не збережене. :("
+                    : String.format("§cМісце смерті гравця §e%s§c не збережене.", target.getName());
+            sender.sendMessage(message);
+            return;
+        }
+
+        if (deathLocation.getWorld() == null) {
+            sender.sendMessage("§cСвіту, де відбулася смерть, більше не існує");
+            return;
+        }
+
+        if (!target.isOnline()) {
+            sender.sendMessage(String.format("§cГравець §e%s§c не в мережі", target.getName()));
             return;
         }
 
         try {
             target.teleport(deathLocation);
-            sender.sendMessage(String.format(
-                    "§aГравця §e§l%s§r§a телепортовано до точки смерті.",
-                    target.getName()
-            ));
+
+            final String successMessage = sender.equals(target)
+                    ? "§aВас телепортовано до точки вашої смерті."
+                    : String.format("§aГарвця §e§l%s§r§a телепортовано до точки смерті.", target.getName());
+
+            sender.sendMessage(successMessage);
+
+            if (!sender.equals(target)) {
+                target.sendMessage("§aВас телепортовано до точки вашої смерті.");
+            }
         }
         catch (Exception e) {
             sender.sendMessage("§cСталась помилка при телепорті. Спробуйте знову");
